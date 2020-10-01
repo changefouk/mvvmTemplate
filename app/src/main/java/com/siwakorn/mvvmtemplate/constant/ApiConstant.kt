@@ -1,4 +1,4 @@
-package com.appsynthassignment.constant
+package com.siwakorn.mvvmtemplate.constant
 
 object ApiConstant {
 
