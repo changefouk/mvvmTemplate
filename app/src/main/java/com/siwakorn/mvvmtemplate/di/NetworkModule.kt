@@ -4,6 +4,7 @@ import android.content.Context
 import com.siwakorn.mvvmtemplate.constant.ApiConstant
 import com.siwakorn.mvvmtemplate.data.api.ApiService
 import com.siwakorn.mvvmtemplate.util.intercepor.InternetConnectionInterceptor
+import com.siwakorn.mvvmtemplate.util.intercepor.RequestInterceptor
 import com.siwakorn.mvvmtemplate.util.intercepor.ResponseConnectionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +19,8 @@ val networkModule = module {
     single { provideHttpLoggingInterceptor() }
     single { provideInternetConnectionInterceptor(androidContext()) }
     single { provideResponseConnectionInterceptor() }
-    single { provideOkHttpClient(get(), get(), get()) }
+    single { provideRequestInterceptor() }
+    single { provideOkHttpClient(get(), get(), get(), get()) }
     single { provideRetrofit(get()) }
     single { provideApiService(get()) }
 }
@@ -34,15 +36,20 @@ private fun provideInternetConnectionInterceptor(context: Context): InternetConn
 private fun provideResponseConnectionInterceptor(): ResponseConnectionInterceptor =
     ResponseConnectionInterceptor()
 
+private fun provideRequestInterceptor(): RequestInterceptor =
+    RequestInterceptor()
+
 private fun provideOkHttpClient(
     httpLoggingInterceptor: HttpLoggingInterceptor,
     connectionInterceptor: InternetConnectionInterceptor,
-    responseConnectionInterceptor: ResponseConnectionInterceptor
+    responseConnectionInterceptor: ResponseConnectionInterceptor,
+    requestInterceptor: RequestInterceptor
 ): OkHttpClient = OkHttpClient()
     .newBuilder()
     .connectTimeout(30L, TimeUnit.SECONDS)
     .readTimeout(30L, TimeUnit.SECONDS)
     .addNetworkInterceptor(httpLoggingInterceptor)
+    .addInterceptor(requestInterceptor)
     .addInterceptor(connectionInterceptor)
     .addInterceptor(responseConnectionInterceptor)
     .build()

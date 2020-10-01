@@ -1,9 +1,10 @@
 package com.siwakorn.mvvmtemplate.data.repository
 
+import com.siwakorn.mvvmtemplate.data.model.response.GenreMovieListResponse
 import com.siwakorn.mvvmtemplate.util.ResultResponse
 
 interface DataRepository {
-    suspend fun getSomeThing(): ResultResponse<Any>
+    suspend fun getListGenreMovie(): ResultResponse<GenreMovieListResponse>
 }
 
 class DataRepositoryImp(
@@ -11,7 +12,7 @@ class DataRepositoryImp(
     private val remoteDataSource: RemoteDataSource
 ) : DataRepository {
 
-    override suspend fun getSomeThing(): ResultResponse<Any> =
-        remoteDataSource.getSomeThing()
+    override suspend fun getListGenreMovie(): ResultResponse<GenreMovieListResponse> =
+        remoteDataSource.getListGenreMovie()
 
 }
