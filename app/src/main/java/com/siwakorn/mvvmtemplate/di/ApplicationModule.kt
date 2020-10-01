@@ -9,7 +9,8 @@ val viewModelModule = module {
 }
 
 val applicationModule = listOf(
-    networkModule, dataBaseModule,
+    networkModule,
+//    dataBaseModule,
     useCaseModule, repositoryModule,
     viewModelModule
 )
