@@ -1,7 +1,8 @@
-package com.siwakorn.mvvmtemplate
+package com.siwakorn.mvvmtemplate.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.siwakorn.mvvmtemplate.R
 import com.siwakorn.mvvmtemplate.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
