@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET(ApiConstant.EndPoint.API)
-    suspend fun getProfile(): BaseResponse // change Base Response to model when use
+    suspend fun getSomeThing(): BaseResponse // change Base Response to model when use
 }
