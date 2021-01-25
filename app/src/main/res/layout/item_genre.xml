@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.siwakorn.mvvmtemplate.data.model.response.GenreItem" />
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_genre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{onClick}"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_genre_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:text="@{item.name}"
+            android:textSize="24sp"
+            tools:text="name" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+
+</layout>

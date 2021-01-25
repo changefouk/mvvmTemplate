@@ -1,4 +1,4 @@
-package com.appsynthassignment.data.database
+package com.siwakorn.mvvmtemplate.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

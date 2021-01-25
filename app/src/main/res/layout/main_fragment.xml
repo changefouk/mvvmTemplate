@@ -5,10 +5,16 @@
     tools:context=".ui.main.MainFragment">
 
     <data>
-        <!--        data binding here-->
+
+        <import type="com.siwakorn.mvvmtemplate.util.StatusResult" />
+
         <variable
             name="vm"
             type="com.siwakorn.mvvmtemplate.ui.main.MainViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.siwakorn.mvvmtemplate.ui.main.adapter.GenreAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,15 +22,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/message"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_msin"
+            goneUnless="@{vm.statusResult == StatusResult.SUCCESS}"
+            setAdapter="@{adapter}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_genre" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_main"
+            goneUnless="@{vm.statusResult == StatusResult.LOADING}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MainFragment"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/layout_errorView_main"
+            goneUnless="@{vm.statusResult == StatusResult.ERROR}"
+            layout="@layout/layout_error"
+            app:errorText="@{vm.errorMessage}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onButtonClick="@{() ->vm.fetchData()}" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

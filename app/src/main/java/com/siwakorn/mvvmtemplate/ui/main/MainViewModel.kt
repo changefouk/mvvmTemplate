@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siwakorn.mvvmtemplate.data.model.response.GenreItem
+import com.siwakorn.mvvmtemplate.data.model.response.Movie
 import com.siwakorn.mvvmtemplate.domain.GetListGenreMovieUseCase
+import com.siwakorn.mvvmtemplate.domain.GetMovieByGenreUseCase
 import com.siwakorn.mvvmtemplate.util.StatusResult
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val useCase: GetListGenreMovieUseCase
+    private val listGenreUseCase: GetListGenreMovieUseCase,
+    private val discoverGenre: GetMovieByGenreUseCase
 ) : ViewModel() {
 
     private val _listGenre = MutableLiveData<List<GenreItem>>()
@@ -29,9 +32,10 @@ class MainViewModel(
         viewModelScope.launch {
             if (statusResult.value != StatusResult.SUCCESS) {
                 _statusResult.value = StatusResult.LOADING
-                useCase.getListGenreMovie().let { result ->
+                listGenreUseCase.getListGenreMovie().let { result ->
                     if (result.isSuccess && result.data != null) {
                         _listGenre.value = result.data.genres
+                        _statusResult.value = StatusResult.SUCCESS
                     } else {
                         // onError
                         _errorMessage.value = result.exception?.message
@@ -42,4 +46,16 @@ class MainViewModel(
         }
     }
 
+    suspend fun discoverGenre(genreId: Int): List<Movie>? {
+        viewModelScope.launch {
+            discoverGenre.getListMovieByGenre(genreId).let { result ->
+                if (result.isSuccess && result.data != null) {
+                    result.data.result
+                } else {
+                    null
+                }
+            }
+        }
+        return null
+    }
 }

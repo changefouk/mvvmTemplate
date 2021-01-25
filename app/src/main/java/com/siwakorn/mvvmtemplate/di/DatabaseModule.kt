@@ -3,7 +3,7 @@ package com.siwakorn.mvvmtemplate.di
 import android.app.Application
 import androidx.room.Room
 import com.siwakorn.mvvmtemplate.data.database.SimpleDao
-import com.appsynthassignment.data.database.SimpleDatabase
+import com.siwakorn.mvvmtemplate.data.database.SimpleDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
